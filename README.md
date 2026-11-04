@@ -2,7 +2,7 @@
 
 # 🎫 Exam Ticket Generator
 
-Генератор экзаменационных билетов с консольным и веб-интерфейсом, Excel-журналом и Selenium-автоматизацией.
+An exam ticket generator with console and web interfaces, an Excel journal, and Selenium automation.
 
 ![C#](https://img.shields.io/badge/C%23-12-512BD4?logo=csharp&logoColor=white)
 ![.NET](https://img.shields.io/badge/.NET-8.0-512BD4?logo=dotnet&logoColor=white)
@@ -13,111 +13,113 @@
 
 </div>
 
-## О проекте
+## About
 
-Учебный проект по разработке с использованием искусственного интеллекта. В лабораторной № 1 создана консольная программа, в лабораторной № 2 — адаптивный веб-интерфейс на ASP.NET Core и сквозной Selenium-тест.
+A university project focused on AI-assisted development. Lab 1 introduced the console application; Lab 2 added a responsive ASP.NET Core web interface and an end-to-end Selenium test.
 
-Пользователь вводит фамилию и имя студента, приложение генерирует билет от **1 до 20**, показывает результат и добавляет запись в `journal.xlsx`. Старые строки сохраняются между запусками.
+The user enters a student's last and first names. The application generates a ticket number from **1 to 20**, displays the result, and appends a record to `journal.xlsx`. Previous rows are preserved across runs.
 
-## Реализовано
+## Features
 
-| Возможность | Лабораторная | Реализация |
+| Feature | Lab | Implementation |
 |---|---:|---|
-| Ввод и проверка ФИО | № 1 | Пустые значения отклоняются, внешние пробелы удаляются |
-| Генерация билета | № 1 | Случайное целое число от 1 до 20 включительно |
-| Excel-журнал | № 1 | Настоящий `.xlsx`, запись после каждого студента |
-| Сохранение истории | № 1 | Новые строки не перезаписывают предыдущие |
-| Консольный выход | № 1 | `ESC` при ожидании фамилии или имени |
-| Адаптивный UI | № 2 | Razor Pages: форма, результат, ошибки и таблица журнала |
-| Selenium | № 2 | Автоматический ввод студента и отправка формы |
-| E2E-проверка Excel | № 2 | Тест подтверждает запись студента в `.xlsx` |
-| Браузеры | № 2 | Opera GX, при её отсутствии — Microsoft Edge |
+| Name entry and validation | 1 | Rejects empty values and trims leading/trailing whitespace |
+| Ticket generation | 1 | Random integer from 1 through 20, inclusive |
+| Excel journal | 1 | A genuine `.xlsx` file updated after each student |
+| Persistent history | 1 | New rows do not overwrite previous entries |
+| Console exit | 1 | Press `ESC` while entering a last or first name |
+| Responsive UI | 2 | Razor Pages form, result, errors, and journal table |
+| Selenium | 2 | Automated student entry and form submission |
+| Excel E2E validation | 2 | Confirms that the student was saved to `.xlsx` |
+| Browsers | 2 | Opera GX, with Microsoft Edge as the fallback |
 
-## Быстрый старт
+## Quick start
 
-Откройте в VS Code папку с файлами `ExamTicketGenerator.sln`, `global.json` и каталогами `src`, `tests`.
+Open the folder containing `ExamTicketGenerator.sln`, `global.json`, `src`, and `tests` in VS Code. Run all commands below from that repository root.
 
-Если терминал открыт в папке `console app`, сначала перейдите в проект:
+If your terminal is in the existing local `console app` folder, enter the nested project first:
 
 ```powershell
 cd ".\ExamTicketGenerator"
 ```
 
-Восстановите зависимости и соберите решение:
+Restore dependencies and build the solution:
 
 ```powershell
 dotnet restore
 dotnet build
 ```
 
-Проект использует .NET 8; совместимая версия SDK закреплена в `global.json`.
+The project uses .NET 8; a compatible SDK version is pinned in `global.json`.
 
-## Лабораторная № 2: веб-интерфейс
+## Lab 2: web interface
 
 ```powershell
 dotnet run --project ".\src\ExamTicketGenerator.Web\ExamTicketGenerator.Web.csproj"
 ```
 
-Откройте адрес из терминала, например `http://localhost:5129`. В интерфейсе можно ввести студента, получить билет, увидеть последние записи и сообщения валидации.
+Open the URL printed in the terminal, such as `http://localhost:5129`. The interface lets you enter a student, generate a ticket, view recent journal entries, and see validation messages.
 
-Веб-журнал создаётся в `src/ExamTicketGenerator.Web/journal.xlsx`. Другой путь можно передать через переменную окружения `JournalPath`.
+The web journal is created at `src/ExamTicketGenerator.Web/journal.xlsx`. Set the `JournalPath` environment variable to use a different location.
 
-## Selenium: автоматический ввод студента
+## Selenium: automated student entry
 
 ```powershell
 dotnet run --project ".\tests\ExamTicketGenerator.SeleniumTests\ExamTicketGenerator.SeleniumTests.csproj"
 ```
 
-Тест самостоятельно:
+The test automatically:
 
-1. запускает веб-приложение на свободном локальном порту;
-2. открывает Opera GX, а при её отсутствии — Edge;
-3. проверяет валидацию пустой формы;
-4. последовательно вводит трёх демонстрационных студентов: Popescu Ana, Ionescu Mihai и Rusu Elena;
-5. отправляет каждую форму и проверяет билеты в диапазоне 1–20;
-6. находит всех студентов в таблице UI;
-7. читает постоянный Excel-журнал и подтверждает сохранение;
-8. закрывает браузер и сервер, сохраняя добавленные записи.
+1. Starts the web application on an available local port.
+2. Opens Opera GX, or Edge if Opera GX is unavailable.
+3. Checks empty-form validation.
+4. Enters three demonstration students in sequence: Popescu Ana, Ionescu Mihai, and Rusu Elena.
+5. Submits each form and verifies that the ticket is within 1–20.
+6. Finds all students in the UI table.
+7. Reads the persistent Excel journal and confirms that the entries were saved.
+8. Closes the browser and server while retaining the added records.
 
-Успешный результат:
+Successful output, with the application's message translated into English:
 
 ```text
 Browser: Opera GX
-SELENIUM PASS: 3 студента добавлены через UI и сохранены в постоянном Excel-журнале.
+SELENIUM PASS: 3 students added through the UI and saved in the persistent Excel journal.
 Journal: C:\...\src\ExamTicketGenerator.Web\journal.xlsx
 ```
 
-Совместимый с текущей Opera GX `ChromeDriver` устанавливается NuGet-пакетом вместе с тестовым проектом.
+A `ChromeDriver` version compatible with the installed Opera GX is supplied as a NuGet package in the test project.
 
-Повторный запуск Selenium добавляет ещё три строки. По умолчанию записи остаются в `src/ExamTicketGenerator.Web/journal.xlsx`; другой файл можно выбрать переменной `SELENIUM_JOURNAL_PATH`.
+Each Selenium run appends three more rows. By default, records remain in `src/ExamTicketGenerator.Web/journal.xlsx`; set `SELENIUM_JOURNAL_PATH` to select another file.
 
-## Лабораторная № 1: консоль
+## Lab 1: console
 
 ```powershell
 dotnet run --project ".\src\ExamTicketGenerator\ExamTicketGenerator.csproj"
 ```
 
+Example interaction, with application messages translated into English:
+
 ```text
-Генератор экзаменационных билетов
-Для выхода нажмите ESC.
+Exam Ticket Generator
+Press ESC to exit.
 Last name: Popescu
 First name: Ana
-Билет № 7.
-Запись сохранена в journal.xlsx.
+Ticket No. 7.
+Record saved to journal.xlsx.
 ```
 
-## Excel-журнал
+## Excel journal
 
-| Last name | First name | Номер билета | Дата и время |
+| Last name | First name | Ticket number | Date and time |
 |---|---|---:|---|
 | Popescu | Ana | 7 | 2026-09-22 15:32:28 |
 | Ionescu | Mihai | 12 | 2026-09-22 15:35:10 |
 
-`journal.xlsx` находится в `.gitignore`, поэтому данные студентов не отправляются в GitHub.
+`journal.xlsx` is listed in `.gitignore`, so student records are not uploaded to GitHub.
 
-## Тестирование
+## Testing
 
-Unit-тесты:
+Unit tests:
 
 ```powershell
 dotnet run --project ".\tests\ExamTicketGenerator.Tests\ExamTicketGenerator.Tests.csproj"
@@ -127,7 +129,7 @@ dotnet run --project ".\tests\ExamTicketGenerator.Tests\ExamTicketGenerator.Test
 Tests: 8, Passed: 8, Failed: 0
 ```
 
-Полная проверка:
+Full validation:
 
 ```powershell
 dotnet build
@@ -135,12 +137,12 @@ dotnet run --project ".\tests\ExamTicketGenerator.Tests\ExamTicketGenerator.Test
 dotnet run --project ".\tests\ExamTicketGenerator.SeleniumTests\ExamTicketGenerator.SeleniumTests.csproj"
 ```
 
-## Структура решения
+## Solution structure
 
 ```text
-ExamTicketGenerator/
+exam-ticket-generator/
 ├── src/
-│   ├── ExamTicketGenerator/                  # логика и консоль
+│   ├── ExamTicketGenerator/                  # core logic and console
 │   │   ├── InputValidator.cs
 │   │   ├── TicketGenerator.cs
 │   │   ├── StudentRecord.cs
@@ -150,76 +152,76 @@ ExamTicketGenerator/
 │       ├── Pages/Index.cshtml.cs
 │       └── wwwroot/css/site.css
 ├── tests/
-│   ├── ExamTicketGenerator.Tests/            # unit-тесты
-│   └── ExamTicketGenerator.SeleniumTests/    # браузерный E2E-тест
-├── AI_PROMPTS.md                              # журнал работы с ИИ
+│   ├── ExamTicketGenerator.Tests/            # unit tests
+│   └── ExamTicketGenerator.SeleniumTests/    # browser E2E test
+├── AI_PROMPTS.md                            # AI development log
 ├── ExamTicketGenerator.sln
 └── README.md
 ```
 
-## Архитектура
+## Architecture
 
-| Компонент | Ответственность |
+| Component | Responsibility |
 |---|---|
-| `InputValidator` | Очистка и проверка имени и фамилии |
-| `TicketGenerator` | Генерация билета от 1 до 20 |
-| `StudentRecord` | Модель строки журнала |
-| `ExcelJournal` | Создание, чтение и безопасное обновление `.xlsx` |
-| `ExamTicketGenerator.Web` | Веб-интерфейс лабораторной № 2 |
-| `ExamTicketGenerator.SeleniumTests` | Сквозная автоматизация действий пользователя |
+| `InputValidator` | Cleans and validates first and last names |
+| `TicketGenerator` | Generates a ticket from 1 to 20 |
+| `StudentRecord` | Models a journal row |
+| `ExcelJournal` | Creates, reads, and safely updates `.xlsx` files |
+| `ExamTicketGenerator.Web` | Lab 2 web interface |
+| `ExamTicketGenerator.SeleniumTests` | End-to-end automation of user actions |
 
-Консоль и веб-интерфейс используют одну бизнес-логику и один формат журнала.
+The console and web interface share the same business logic and journal format.
 
-## Использование искусственного интеллекта
+## Use of AI
 
-ИИ применялся для анализа задания, выбора стека, проектирования, реализации C#-кода, UI, Excel-формата, unit- и Selenium-тестов, диагностики браузеров и подготовки документации.
+AI assisted with assignment analysis, stack selection, design, C# implementation, UI, Excel format, unit and Selenium tests, browser diagnostics, and documentation.
 
-Подробный журнал: [`AI_PROMPTS.md`](AI_PROMPTS.md).
+See the detailed development log in [`AI_PROMPTS.md`](AI_PROMPTS.md).
 
-## Email-уведомления о коммитах
+## Commit email notifications
 
-Workflow `.github/workflows/email-on-push.yml` запускается после каждого `push` в любую ветку и отправляет письмо со списком коммитов, автором, веткой и ссылкой на изменения. Локальный `git commit` без `git push` письмо не вызывает, потому что GitHub ещё не получил изменения.
+The `.github/workflows/email-on-push.yml` workflow runs after each `push` to any branch and emails the commit list, author, branch, and a link to the changes. A local `git commit` without `git push` does not trigger an email because GitHub has not received the changes yet.
 
-Для настройки откройте репозиторий на GitHub и перейдите в **Settings → Secrets and variables → Actions → New repository secret**. Добавьте:
+In the GitHub repository, open **Settings → Secrets and variables → Actions → New repository secret** and add:
 
-| Secret | Значение |
+| Secret | Value |
 |---|---|
-| `SMTP_HOST` | SMTP-сервер почтового провайдера, например `smtp.gmail.com` |
-| `SMTP_PORT` | Обычно `587`; для SMTP SSL может использоваться `465` |
-| `SMTP_USERNAME` | Полный адрес почты отправителя |
-| `SMTP_PASSWORD` | Пароль приложения, а не пароль от основного аккаунта |
-| `MAIL_TO` | Адрес получателя; необязательно, по умолчанию `SMTP_USERNAME` |
-| `MAIL_FROM` | Адрес отправителя; необязательно, по умолчанию `SMTP_USERNAME` |
+| `SMTP_HOST` | The mail provider's SMTP server, for example `smtp.gmail.com` |
+| `SMTP_PORT` | Usually `587`; SMTP SSL may use `465` |
+| `SMTP_USERNAME` | The sender's full email address |
+| `SMTP_PASSWORD` | An app password, rather than the account's main password |
+| `MAIL_TO` | Optional recipient address; defaults to `SMTP_USERNAME` |
+| `MAIL_FROM` | Optional sender address; defaults to `SMTP_USERNAME` |
 
-После добавления секретов откройте вкладку **Actions**, выберите **Email notification on push** и нажмите **Run workflow** для тестового письма. Секреты не записываются в репозиторий и не выводятся в логах.
+After adding the secrets, open **Actions**, select **Email notification on push**, and click **Run workflow** to send a test email. Secrets are not stored in the repository or printed in logs.
 
-## Возможные проблемы
+## Troubleshooting
 
-### `Указанный путь к файлу не существует`
+### The specified project path does not exist
 
-Перейдите в папку с `ExamTicketGenerator.sln` и повторите команду.
+Enter the folder containing `ExamTicketGenerator.sln` and run the command again.
 
-### `journal.xlsx` открыт в Excel
+### `journal.xlsx` is open in Excel
 
-Закройте файл и повторите сохранение: Excel блокирует открытую книгу.
+Close the workbook and retry saving: Excel locks an open file.
 
-### Несовместимая версия ChromeDriver
+### Incompatible ChromeDriver version
 
-Opera GX обновила встроенный Chromium. Обновите пакет:
+Opera GX has updated its embedded Chromium version. Update the package:
 
 ```powershell
 dotnet add ".\tests\ExamTicketGenerator.SeleniumTests\ExamTicketGenerator.SeleniumTests.csproj" package Selenium.WebDriver.ChromeDriver
 dotnet restore
 ```
 
-### Edge запрещает remote debugging
+### Edge blocks remote debugging
 
-На некоторых учебных компьютерах политика Windows запрещает WebDriver для Edge. При наличии Opera GX тест автоматически использует её.
+On some classroom computers, Windows policy prevents WebDriver from controlling Edge. The test automatically uses Opera GX when it is installed.
 
 ---
 
 <div align="center">
 
-Учебный проект · C# · .NET 8 · ASP.NET Core · Selenium · AI-assisted development
+University project · C# · .NET 8 · ASP.NET Core · Selenium · AI-assisted development
 
 </div>
